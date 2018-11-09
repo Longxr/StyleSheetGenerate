@@ -81,16 +81,16 @@ bool XmlRW::ExportToQSS(const QString& strPath)
 
             if(-1 == index2 || index1 < index2) {
                 if(0 == index1) {
-                    strQss.insert(0, model.GetWidgetClassName() + "#" + model.GetWidgetObjectName());
+                    strQss.insert(0, "#" + m_list.at(0).GetWidgetObjectName() + " " + model.GetWidgetClassName() + "#" + model.GetWidgetObjectName());
                 }
                 else if(-1 != strQss.indexOf(model.GetWidgetClassName())) {
-                    int count = strQss.count(model.GetWidgetClassName());
-                    int nameIndex = 0;
-                    for(int i = 0; i < count; i++) {
-                        nameIndex = strQss.indexOf(model.GetWidgetClassName(), nameIndex) + model.GetWidgetClassName().length();
-                        strQss.insert(nameIndex, "#" + model.GetWidgetObjectName());
-                    }
+                    QString strNew = /*"#" + m_list.first().GetWidgetObjectName()*/m_list.first().GetWidgetObjectName() + " " + model.GetWidgetClassName() + "#" + model.GetWidgetObjectName();
+                    strQss.replace(model.GetWidgetClassName() , strNew);
                 }
+            }
+            else {
+                QString strNew = /*"#" + m_list.first().GetWidgetObjectName()*/m_list.first().GetWidgetObjectName() + " " + model.GetWidgetClassName();
+                strQss.replace(model.GetWidgetClassName() , strNew);
             }
 
             outStream << strQss << "\n\n\n";
